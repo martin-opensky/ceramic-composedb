@@ -1,4 +1,5 @@
-type Profile @createModel(accountRelation: SINGLE, description: "User profile info") {
+type Profile
+  @createModel(accountRelation: SINGLE, description: "User profile info") {
   name: String! @string(maxLength: 50)
 }
 
@@ -15,3 +16,21 @@ type Note @createModel(accountRelation: LIST, description: "Simple text note") {
   title: String! @string(minLength: 10, maxLength: 100)
   text: String! @string(maxLength: 2000)
 }
+
+""""
+Spaces and Apps will be stored on-chain - the Ceramic DB will be used for off-chain app data only 
+  Like: 
+    DiscussionApp
+      Topic, Comment, Reaction
+    ChatServerApp
+      Channel, Message, Reaction
+    ClassifiedAds
+      Advert
+    Gallery
+    PodCast
+    Events / Ticketing
+    Gallery
+    Creations --> NFTs / Collectibles (On-Chain)
+""""
+      
+
