@@ -1,36 +1,33 @@
-type Profile
-  @createModel(accountRelation: SINGLE, description: "User profile info") {
+type Account
+  @createModel(accountRelation: SINGLE, description: "User account") {
+  did: DID! @documentAccount
+  version: CommitID! @documentVersion
   name: String! @string(maxLength: 50)
 }
 
-enum NoteStatus {
-  DEFAULT
-  IMPORTANT
-  ARCHIVE
+"ONLY Data I would store in an IPFS file "
+type Space
+  @createModel(accountRelation: LIST, description: "Community Spaces") {
+  spaceId: String! @string(maxLength: 50)
+  version: CommitID! @documentVersion
+  name: String! @string(maxLength: 50)
+  description: String! @string(maxLength: 2000)
 }
 
-type Note @createModel(accountRelation: LIST, description: "Simple text note") {
+type DiscussionTopic
+  @createModel(accountRelation: LIST, description: "Discussion App Topic") {
   author: DID! @documentAccount
   version: CommitID! @documentVersion
-  status: NoteStatus
-  title: String! @string(minLength: 10, maxLength: 100)
+  spaceId: String! @string(maxLength: 50)
+  title: String! @string(maxLength: 50)
   text: String! @string(maxLength: 2000)
 }
 
-""""
-Spaces and Apps will be stored on-chain - the Ceramic DB will be used for off-chain app data only 
-  Like: 
-    DiscussionApp
-      Topic, Comment, Reaction
-    ChatServerApp
-      Channel, Message, Reaction
-    ClassifiedAds
-      Advert
-    Gallery
-    PodCast
-    Events / Ticketing
-    Gallery
-    Creations --> NFTs / Collectibles (On-Chain)
-""""
-      
-
+type DiscussionComment
+  @createModel(accountRelation: LIST, description: "Discussion App Comment") {
+  author: DID! @documentAccount
+  version: CommitID! @documentVersion
+  spaceId: String! @string(maxLength: 50)
+  text: String! @string(maxLength: 2000)
+  topicId: String! @string(maxLength: 50)
+}
